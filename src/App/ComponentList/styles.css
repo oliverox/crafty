@@ -1,0 +1,19 @@
+.component-list {
+  background-color: lightblue;
+  width: 200px;
+  height: 100%;
+}
+
+.component-list ul {
+  list-style-type: none;
+}
+
+.component-list ul li {
+  cursor: pointer;
+  line-height: 50px;
+  border-bottom: 1px solid #000;
+}
+
+.component-list ul li:hover {
+  background-color: #fff;
+}

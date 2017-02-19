@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components';
+
+import 'normalize.css';
 import './index.css';
 
+import { Crafty } from './App';
+
 ReactDOM.render(
-  <App />,
+  <Crafty />,
   document.getElementById('root')
 );

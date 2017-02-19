@@ -1,0 +1,33 @@
+html, body, #root {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+.crafty {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.crafty-header {
+  background-color: #222;
+  height: 59px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.column-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.canvas {
+  flex: 1;
+  height: 100%;
+}
+
+.canvas iframe {
+  border: 0;
+}

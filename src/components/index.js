@@ -1,2 +1,2 @@
-export { default as App } from './App';
-export { default as Canvas } from './Canvas';
+export { default as SampleContainer } from './SampleContainer';
+export { default as Container } from './Container';

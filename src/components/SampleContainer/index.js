@@ -12,7 +12,7 @@ class SampleContainer extends Component {
       return color;
     }
     return (
-      <div style={{border: `2px solid ${getRandomColor()}`}}>{children}</div>
+      <div style={{backgroundColor: `${getRandomColor()}`}}>{children}</div>
     )
   }
 }

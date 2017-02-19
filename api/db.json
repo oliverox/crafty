@@ -1,0 +1,11 @@
+{
+	"components": [{
+		"id": 1,
+		"name": "SampleContainer",
+    "defaultChildren": "Lorem ipsum dolor sit amet."
+	}, {
+		"id": 2,
+		"name": "Container",
+    "defaultChildren": "Lorem ipsum dolor sit amet."
+	}]
+}
