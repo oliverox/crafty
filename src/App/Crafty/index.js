@@ -50,7 +50,7 @@ class Crafty extends Component {
           <ComponentTree />
 
           <div className="canvas">
-            <iframe ref={(el) => this.canvasEl = el} width="100%" height="100%" src="/canvas.html"/>
+            <iframe ref={(el) => this.canvasEl = el} width="100%" height="100%" src="/canvas.html" />
           </div>
         </div>
       </div>
