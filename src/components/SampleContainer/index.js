@@ -17,4 +17,6 @@ class SampleContainer extends Component {
   }
 }
 
+SampleContainer.displayName = 'SampleContainer';
+
 export default SampleContainer;

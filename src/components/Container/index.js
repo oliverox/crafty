@@ -8,4 +8,6 @@ const Container = ({children, ...rest}) => {
   );
 }
 
+Container.displayName = 'Container';
+
 export default Container;

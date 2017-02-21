@@ -57,7 +57,10 @@ class Canvas extends Component {
             }
           }.bind(this));
           break;
-          
+        
+        case 'updateTree':
+          console.log('[CANVAS]: updating tree...', msg.data);  
+          break;
         default:
           
       }
