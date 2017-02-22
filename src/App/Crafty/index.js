@@ -14,12 +14,12 @@ class Crafty extends Component {
       tree: {
         app: <div className="app"></div>,
         selectedInstanceId: '0'
-      } 
+      }
     }
     this.onComponentListClick = this.onComponentListClick.bind(this);
     this.onTreeItemClick = this.onTreeItemClick.bind(this);
   }
-  
+
   componentDidMount() {
     if (!this.canvasEl) return;
     fetch('/api/components').then(function(response) {
@@ -32,12 +32,12 @@ class Crafty extends Component {
           defaultChildren: c.defaultChildren
         }
       });
-      this.setState({componentList: componentList});      
+      this.setState({componentList: componentList});
     }.bind(this)).catch(function(ex) {
       console.log('parsing failed', ex)
     });
   }
-    
+
   onComponentListClick(event) {
     event.preventDefault();
     const cid = event.target.getAttribute('data-cid');
@@ -56,7 +56,7 @@ class Crafty extends Component {
           <NewChild.type
             instanceId={instanceId}
             data-cid={cid}
-            key={appChildren.length + 1} 
+            key={appChildren.length + 1}
             {...component.props}>
               {component.defaultChildren}
           </NewChild.type>
@@ -65,19 +65,19 @@ class Crafty extends Component {
         const newState = Object.assign({}, this.state);
         newState.tree.app = <div data-cid={0} className="app">{appChildren}</div>;
         this.setState(newState);
-      } catch(err) { 
-        console.log('ERROR:', err); 
+      } catch(err) {
+        console.log('ERROR:', err);
       }
     }.bind(this));
-    
+
     this.canvasEl.contentWindow.postMessage({
       action: 'append',
-      target: 'app',
+      targetInstanceId: this.state.tree.selectedInstanceId,
       cid,
       instanceId
     }, '*');
   }
-  
+
   onTreeItemClick(event) {
     event.preventDefault();
     console.log('Clicked on tree item cid:', event.target.getAttribute('data-cid'), 'instanceId:', event.target.getAttribute('data-instanceId'));
@@ -86,20 +86,17 @@ class Crafty extends Component {
     newState.tree.selectedInstanceId = selectedInstanceId;
     this.setState(newState);
   }
-  
+
   render() {
     return (
       <div className="crafty">
-        <div className="crafty-header">
-          <h2>Welcome to Crafty</h2>
-        </div>
         <div className="column-container">
-          <ComponentList 
+          <ComponentList
             onComponentClick={this.onComponentListClick}
             list={this.state.componentList} />
 
-          <ComponentTree 
-            tree={this.state.tree} 
+          <ComponentTree
+            tree={this.state.tree}
             selectedInstanceId={this.state.tree.selectedInstanceId}
             onTreeItemClick={this.onTreeItemClick}
           />

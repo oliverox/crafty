@@ -4,7 +4,7 @@ import TreeView from 'react-treeview';
 import './styles.css';
 
 const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
-  const createTreeView = (component) => {
+  const createTreeView = (component, targetInstanceId) => {
     console.log('[createTreeView]: component=', component);
     if (!component.props) return component;
     if (React.Children.count(component.props.children) > 0) {
@@ -31,7 +31,7 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
   return (
     <div className="component-tree">
       <h3>Component Tree</h3>
-      <TreeView 
+      <TreeView
         nodeLabel="App"
         defaultCollapsed={false}
         data-cid={0}
@@ -41,7 +41,7 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
       >
         {
           React.Children.map(tree.app.props.children, (childComponent) => {
-            return createTreeView(childComponent);
+            return createTreeView(childComponent, selectedInstanceId);
           })
         }
       </TreeView>
@@ -50,31 +50,3 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
 }
 
 export default ComponentTree;
-
-/*
-<ul>
-  <li 
-    data-cid={0}
-    data-instanceId={'0'}
-    onClick={onTreeItemClick}
-    style={{backgroundColor: (selectedInstanceId === '0') ? 'lightgrey' : ''}}>
-    app
-  </li>
-  {
-    React.Children.map(tree.app.props.children, (childComponent, index) => {
-      console.log(index, 'childComponent:', childComponent);
-      const cid = parseInt(childComponent.props['data-cid'], 10);
-      const instanceId = childComponent.props.instanceId;
-      return(
-        <li 
-          key={index}
-          data-cid={cid}
-          data-instanceId={instanceId}
-          onClick={onTreeItemClick}
-          style={{backgroundColor: (selectedInstanceId === instanceId) ? 'lightgrey' : ''}}>
-          {childComponent.type.displayName}
-        </li>);
-    })
-  }
-</ul>
-*/
