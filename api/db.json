@@ -2,18 +2,18 @@
 	"components": [{
 		"id": 1,
 		"name": "SampleContainer",
-    "defaultChildren": "Lorem ipsum dolor sit amet."
+    "defaultChildren": "SampleContainer"
 	}, {
 		"id": 2,
 		"name": "Container",
-    "defaultChildren": "Lorem ipsum dolor sit amet."
+		"defaultChildren": "Container"
 	}, {
 		"id": 3,
 		"name": "Test",
-    "defaultChildren": "Lorem ipsum dolor sit amet."
+		"defaultChildren": "Test"
 	}, {
 		"id": 4,
 		"name": "Test2",
-    "defaultChildren": "Lorem ipsum dolor sit amet."
+		"defaultChildren": "Test2"
 	}]
 }
