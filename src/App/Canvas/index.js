@@ -47,9 +47,9 @@ class Canvas extends Component {
       if (child.children.length === 0) {
         return child;
       } else {
-        return (child.children.map((child) => {
+        return (child.children.map(function(child) {
           return this.processChild(child, targetInstanceId, newChild);
-        }).bind(this));
+        }.bind(this)));
       }
     }
   }

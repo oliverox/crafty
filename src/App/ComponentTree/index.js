@@ -6,10 +6,12 @@ import './styles.css';
 const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
   const createTreeView = (component, targetInstanceId) => {
     console.log('[createTreeView]: component=', component);
+    console.log('[createTreeView]: tree.app.props.children', tree.app.props.children);
     if (!component.props) return component;
     if (React.Children.count(component.props.children) > 0) {
       const cid = parseInt(component.props['data-cid'], 10);
       const instanceId = component.props.instanceId;
+      const selectedClass = (selectedInstanceId === instanceId) ? 'selected' : ''
       return (
         <TreeView
           nodeLabel={component.type.displayName}
@@ -17,7 +19,7 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
           data-cid={cid}
           data-instanceId={instanceId}
           onClick={onTreeItemClick}
-          style={{backgroundColor: (selectedInstanceId === instanceId) ? 'lightgrey' : ''}}
+          itemClassName={`tree-item ${selectedClass}`}
         >
           {React.Children.map(component.props.children, (childComponent) => {
             return createTreeView(childComponent);
@@ -37,7 +39,7 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
         data-cid={0}
         data-instanceId={'0'}
         onClick={onTreeItemClick}
-        style={{backgroundColor: (selectedInstanceId === '0') ? 'lightgrey' : ''}}
+        itemClassName={(selectedInstanceId === '0') ? 'tree-item selected' : 'tree-item'}
       >
         {
           React.Children.map(tree.app.props.children, (childComponent) => {
