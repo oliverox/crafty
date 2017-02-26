@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import shortid from 'shortid';
 
+// Set Canvas theme
+import '../../_theme/material-icons.min.css';
+
+// Import Canvas styles
 import './styles.css';
 
 class Canvas extends Component {

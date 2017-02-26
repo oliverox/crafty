@@ -38,7 +38,7 @@
 }
 
 .tree-view_arrow:after {
-  content: '▾';
+  content: '▹';
 }
 
 /* rotate the triangle to close it */

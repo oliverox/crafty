@@ -28,6 +28,29 @@ html, body, #root {
   height: 100%;
 }
 
+.canvas .urlbar-container {
+  display: flex;
+  height: 40px;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  background-color: #f5f5f5;
+}
+.canvas .urlbar-container .browser-button {
+  display: inline;
+  padding: 5px;
+}
+
+.browser-button.new-page {
+  font-size: 12px;
+}
+
+.canvas .urlbar {
+  flex-grow: 1;
+  height: 25px;
+  font-size: 14px;
+}
+
 .canvas iframe {
   border: 0;
 }

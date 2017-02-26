@@ -2,18 +2,27 @@
 	"components": [{
 		"id": 1,
 		"name": "SampleContainer",
-    "defaultChildren": "SampleContainer"
+    "defaultChildren": "SampleContainer",
+		"customChildren": true
 	}, {
 		"id": 2,
 		"name": "Container",
-		"defaultChildren": "Container"
+		"defaultChildren": "Container",
+		"customChildren": true
 	}, {
 		"id": 3,
 		"name": "Test",
-		"defaultChildren": "Test"
+		"defaultChildren": "Test",
+		"customChildren": false
 	}, {
 		"id": 4,
 		"name": "Test2",
-		"defaultChildren": "Test2"
+		"defaultChildren": "Test2",
+		"customChildren": false
+	}, {
+		"id": 5,
+		"name": "Header",
+		"defaultChildren": "",
+		"customChildren": false
 	}]
 }

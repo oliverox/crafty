@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import shortid from 'shortid';
 import { ComponentList, ComponentTree } from '../../App';
-// import { App } from '../../components';
 
+// Set Crafty theme
+import '../../_theme/material-icons.min.css';
+
+// Import Crafty styles
 import './styles.css';
 
 class Crafty extends Component {
@@ -87,21 +90,6 @@ class Crafty extends Component {
           });
         }
 
-
-        // // Add component to App for POC
-        // console.log('app:', this.state.tree.app);
-        // const appChildren = React.Children.toArray(this.state.tree.app.props.children);
-        // const NewChild = <NewComponent />;
-        // appChildren.push(
-        //   <NewChild.type
-        //     instanceId={instanceId}
-        //     data-cid={cid}
-        //     key={appChildren.length + 1}
-        //     {...component.props}>
-        //       {component.defaultChildren}
-        //   </NewChild.type>
-        // );
-        console.log('--- newAppChildren:', newAppChildren);
         const newState = Object.assign({}, this.state);
         newState.tree.app = <div data-cid={0} className="app">{newAppChildren}</div>;
         this.setState(newState);
@@ -142,6 +130,11 @@ class Crafty extends Component {
           />
 
           <div className="canvas">
+            <div className="urlbar-container">
+              <div className="browser-button back-button">←</div><div className="browser-button fwd-button">→</div>
+              <input className="urlbar" type="text" placeholder="www.yourapp.com/" />
+              <div className="browser-button new-page">New Page</div>
+            </div>
             <iframe ref={(el) => this.canvasEl = el} width="100%" height="100%" src="/canvas.html" />
           </div>
         </div>
