@@ -17,7 +17,8 @@ class Crafty extends Component {
       tree: {
         app: <div className="app"></div>,
         selectedInstanceId: '0'
-      }
+      },
+      appSchema: [],
     }
     this.onComponentListClick = this.onComponentListClick.bind(this);
     this.onTreeItemClick = this.onTreeItemClick.bind(this);
@@ -32,10 +33,17 @@ class Crafty extends Component {
       components.forEach((c) => {
         componentList[c.id] = {
           name: c.name,
-          defaultChildren: c.defaultChildren
+          defaultText: c.defaultText,
+          defaultStyle: c.defaultStyle
         }
       });
       this.setState({componentList: componentList});
+      const self = this;
+      window.setTimeout(() => {
+        self.canvasEl.contentWindow.postMessage({
+          action: 'createApp'
+        }, '*');
+      }, 1000)
     }.bind(this)).catch(function(ex) {
       console.log('parsing failed', ex)
     });
@@ -131,8 +139,9 @@ class Crafty extends Component {
 
           <div className="canvas">
             <div className="urlbar-container">
-              <div className="browser-button back-button">←</div><div className="browser-button fwd-button">→</div>
+              <div className="browser-button back-button">►</div><div className="browser-button fwd-button">►</div>
               <input className="urlbar" type="text" placeholder="www.yourapp.com/" />
+              <div className="browser-button new-app">New App</div>
               <div className="browser-button new-page">New Page</div>
             </div>
             <iframe ref={(el) => this.canvasEl = el} width="100%" height="100%" src="/canvas.html" />

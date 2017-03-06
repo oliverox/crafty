@@ -41,7 +41,15 @@ html, body, #root {
   padding: 5px;
 }
 
-.browser-button.new-page {
+.browser-button.back-button {
+  transform: rotate(180deg);
+}
+
+.browser-button.fwd-button {
+  margin-top: 5px;
+}
+
+.browser-button {
   font-size: 12px;
 }
 
@@ -49,6 +57,9 @@ html, body, #root {
   flex-grow: 1;
   height: 25px;
   font-size: 14px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding-left: 10px;
 }
 
 .canvas iframe {

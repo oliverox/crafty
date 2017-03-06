@@ -14,7 +14,6 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
       const cid = parseInt(component.props['data-cid'], 10);
       const instanceId = component.props.instanceId;
       const selectedClass = (selectedInstanceId === instanceId) ? 'selected' : ''
-      console.log('component.props.children=', component.props.children);
       return (
         <TreeView
           nodeLabel={<span className="node" onClick={onTreeItemClick}>{component.type.displayName}</span>}
@@ -28,7 +27,7 @@ const ComponentTree = ({ tree, selectedInstanceId, onTreeItemClick }) => {
           {
             React.Children.map(component.props.children, (childComponent) => {
               if (childComponent.props) {
-                return createTreeView(childComponent);                  
+                return createTreeView(childComponent);
               } else {
                 return '';
               }

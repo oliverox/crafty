@@ -1,28 +1,46 @@
 {
-	"components": [{
-		"id": 1,
-		"name": "SampleContainer",
-    "defaultChildren": "SampleContainer",
-		"customChildren": true
-	}, {
-		"id": 2,
-		"name": "Container",
-		"defaultChildren": "Container",
-		"customChildren": true
-	}, {
-		"id": 3,
-		"name": "Test",
-		"defaultChildren": "Test",
-		"customChildren": false
-	}, {
-		"id": 4,
-		"name": "Test2",
-		"defaultChildren": "Test2",
-		"customChildren": false
-	}, {
-		"id": 5,
-		"name": "Header",
-		"defaultChildren": "",
-		"customChildren": false
-	}]
+  "components": [{
+    "id": 0,
+    "name": "App",
+    "defaultText": "Your app is currently blank... Add a component to start crafting.",
+    "defaultStyle": {
+      "display": "flex",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "color": "white",
+      "backgroundColor": "darkblue"
+    },
+    "allowCustomChildren": true,
+    "children": []
+  }, {
+    "id": 1,
+    "name": "SampleContainer",
+    "defaultText": "SampleContainer",
+    "allowCustomChildren": true,
+    "children": []
+  }, {
+    "id": 2,
+    "name": "Container",
+    "defaultText": "Container",
+    "allowCustomChildren": true,
+    "children": []
+  }, {
+    "id": 3,
+    "name": "Test",
+    "defaultText": "Test",
+    "allowCustomChildren": false,
+    "children": []
+  }, {
+    "id": 4,
+    "name": "Test2",
+    "defaultText": "Test2",
+    "allowCustomChildren": false,
+    "children": []
+  }, {
+    "id": 5,
+    "name": "Header",
+    "defaultText": "",
+    "allowCustomChildren": false,
+    "children": []
+  }]
 }

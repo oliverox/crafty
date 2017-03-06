@@ -12,6 +12,7 @@ class Canvas extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      appSchema: [],
       app: {
         instanceId: 0,
         children: []
@@ -20,6 +21,8 @@ class Canvas extends Component {
     this.componentList = {};
     this.handleFrameTasks = this.handleFrameTasks.bind(this);
     this.processChild = this.processChild.bind(this);
+    this.mapChildrenToDom = this.mapChildrenToDom.bind(this);
+    this.mapJsonToDom = this.mapJsonToDom.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +32,10 @@ class Canvas extends Component {
       components.forEach((c) => {
         this.componentList[c.id] = {
           name: c.name,
-          defaultChildren: c.defaultChildren
+          defaultText: c.defaultText,
+          defaultStyle: c.defaultStyle,
+          allowCustomChildren: c.allowCustomChildren,
+          children: c.children
         }
       });
     }.bind(this)).catch(function(ex) {
@@ -60,44 +66,33 @@ class Canvas extends Component {
 
   handleFrameTasks(msg) {
     console.log('[CANVAS]: message received:', msg);
-    if (msg.type === 'message' && msg.data.action === 'append') {
+    if (msg.type === 'message') {
       switch (msg.data.action) {
-        case 'append':
+        case 'createApp':
           require.ensure([], function(require) {
             try {
-              const NewComponent = require(`../../components/${this.componentList[msg.data.cid].name}/index.js`).default;
-              const targetInstanceId = msg.data.targetInstanceId;
-              const appState = Object.assign({}, this.state.app);
-              const appChildren = appState.children.slice(0);
-              console.log('origin appChildren', appChildren);
-              if (targetInstanceId === '0') {
-                appChildren.push({
-                  cid: msg.data.cid,
-                  instanceId: msg.data.instanceId,
-                  component: <NewComponent key={shortid()} />,
-                  children: []
-                });
-              } else {
-                const newAppChildren = [];
-                appChildren.forEach((child) => {
-                  newAppChildren.push(this.processChild(child, targetInstanceId, {
-                    cid: msg.data.cid,
-                    instanceId: msg.data.instanceId,
-                    component: <NewComponent key={shortid()} />,
-                    children: []
-                  }));
-                  console.log('newAppChildren', newAppChildren);
-                });
-              }
-              console.log('new appChildren:', appChildren);
-              appState.children = appChildren;
+              const AppComponent = this.componentList[0];
+              const newAppSchema = this.state.appSchema.slice(0);
+              newAppSchema.push(AppComponent);
               this.setState({
-                app: appState
-              });
-            } catch(err) {
-              console.log('ERROR:', err);
+                appSchema: newAppSchema
+              })
+            } catch (err) {
+              console.log('Error in createApp', err);
             }
           }.bind(this));
+          break;
+
+        case 'append':
+          const targetInstanceId = parseInt(msg.data.targetInstanceId, 10);
+          const appSchema = this.state.appSchema.slice(0);
+          if (targetInstanceId === 0) {
+            // If target is 'App'
+            appSchema[0].children.push(this.componentList[msg.data.cid])
+          } else {
+
+          }
+          this.setState({ appSchema });
           break;
 
         case 'updateTree':
@@ -109,23 +104,42 @@ class Canvas extends Component {
     }
   }
 
-  getChildren(childrenArr, cid) {
-    // debugger;
-    if (!Array.isArray(childrenArr) || childrenArr.length === 0) {
-      if (this.componentList[cid]) {
-        return this.componentList[cid].defaultChildren || childrenArr;
-      } else {
-        return '';
-      }
-    }
-    return childrenArr.map((child) => {
-      return (<child.component.type key={child.instanceId}>{this.getChildren(child.children, child.cid)}</child.component.type>);
-    });
+  mapChildrenToDom(children) {
+    if (children.length === 0) return [];
+    return (children.map((childComponent) => {
+      const { name, defaultText, style, defaultStyle, allowCustomChildren, children, ...rest} = childComponent;
+      const Component2Craft = require(`../../components/${name}/index.js`).default;
+      return (
+        <Component2Craft key={shortid()} style={(style) ? {...style} : {...defaultStyle}} {...rest}>
+          {
+            (allowCustomChildren && children.length > 0)
+            ? this.mapChildrenToDom(children)
+            : defaultText || name
+          }
+        </Component2Craft>
+      )
+    }));
+  }
+
+  mapJsonToDom(json) {
+    if (json.length === 0) { return '' }
+    const { name, defaultText, style, defaultStyle, allowCustomChildren, children, ...rest} = json[0];
+    const Component2Craft = require(`../../components/${name}/index.js`).default;
+    return (
+      <Component2Craft key={shortid()} style={(style || children.length > 0) ? {...style} : {...defaultStyle}} {...rest}>
+        {
+          (allowCustomChildren && children.length > 0)
+          ? this.mapChildrenToDom(children)
+          : defaultText || name
+        }
+      </Component2Craft>
+    )
   }
 
   render() {
+    console.log('rendering canvas with following json:', this.state.appSchema);
     return (
-      <div className="canvas" ref={(el) => this.app = el}>{this.getChildren(this.state.app.children, 0)}</div>
+      <div className="app-container" ref={(el) => this.app = el}>{this.mapJsonToDom(this.state.appSchema)}</div>
     );
   };
 }

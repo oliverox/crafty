@@ -10,17 +10,15 @@ const ComponentList = ({ list, onComponentClick }) => {
       ...list[key]
     });
   });
-  console.log('==== componentArr', componentArr);
   return (
     <div className="component-list">
       <h3>Component List</h3>
       <ul>
         {
-          componentArr.map((component, index) => {
-            console.log('component', component.id);
+          componentArr.slice(1).map((component, index) => {
             return (
-              <li 
-                onClick={onComponentClick} 
+              <li
+                onClick={onComponentClick}
                 data-cid={component.id}
                 key={component.id}>{index} - {component.name}
               </li>
